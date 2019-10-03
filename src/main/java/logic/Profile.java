@@ -12,17 +12,17 @@ import java.time.LocalDate;
  * @author Alex
  */
 public class Profile {
+    private int id;
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
-    private int age;
     private String picturePath;
 
-    public Profile(String firstName, String lastName, LocalDate dateOfBirth, int age, String picturePath) {
+    public Profile(int id, String firstName, String lastName, LocalDate dateOfBirth, String picturePath) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
-        this.age = age;
         this.picturePath = picturePath;
     }
 
@@ -50,20 +50,17 @@ public class Profile {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public String getPicturePath() {
         return picturePath;
     }
 
     public void setPicturePath(String picturePath) {
         this.picturePath = picturePath;
+    }
+
+    @Override
+    public String toString() {
+        return "Profile{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", picturePath=" + picturePath + '}';
     }
     
     

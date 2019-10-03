@@ -22,6 +22,9 @@ public class ProfileController {
     public void addProfile(Profile profile){
         profiles.add(profile);
     }
-    
+
+    public List<Profile> getProfiles() {
+        return profiles;
+    }
     
 }

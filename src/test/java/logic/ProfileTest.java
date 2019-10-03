@@ -19,7 +19,7 @@ public class ProfileTest {
 
     @Before
     public void setUp(){
-        profile = new Profile("Søren", "Larsen", LocalDate.now(), 25, "test");
+        profile = new Profile(1, "Søren", "Larsen", LocalDate.now(), "test");
     }
 
     /**
@@ -92,30 +92,6 @@ public class ProfileTest {
         Profile instance = profile;
         instance.setDateOfBirth(dateOfBirth);
         assertTrue(dateOfBirth == profile.getDateOfBirth());
-    }
-
-    /**
-     * Test of getAge method, of class Profile.
-     */
-    @Test
-    public void testGetAge() {
-        System.out.println("getAge");
-        Profile instance = profile;
-        int expResult = 25;
-        int result = instance.getAge();
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of setAge method, of class Profile.
-     */
-    @Test
-    public void testSetAge() {
-        System.out.println("setAge");
-        int age = 30;
-        Profile instance = profile;
-        instance.setAge(age);
-        assertEquals(age, profile.getAge());
     }
 
     /**
