@@ -18,6 +18,14 @@ public class Profile {
     private LocalDate dateOfBirth;
     private String picturePath;
 
+    public Profile(int id, String firstName, String lastName, LocalDate dateOfBirth) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    
     public Profile(int id, String firstName, String lastName, LocalDate dateOfBirth, String picturePath) {
         this.id = id;
         this.firstName = firstName;

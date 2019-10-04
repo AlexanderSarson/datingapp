@@ -5,20 +5,23 @@
  */
 package Presentation;
 
+import Persistence.BasisConnectionPool;
+import Persistence.ProfileMapper;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import logic.Profile;
 
 /**
  *
  * @author Alex
  */
-@WebServlet(name = "FrontController", urlPatterns = {"/FrontController"})
-public class FrontController extends HttpServlet {
+@WebServlet(name = "CreateProfile", urlPatterns = {"/CreateProfile"})
+public class CreateProfile extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -30,21 +33,14 @@ public class FrontController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String cmd = request.getParameter("cmd");
-        RequestDispatcher rd;
-        
-        switch (cmd) {
-            case "createProfile":
-                rd = request.getRequestDispatcher("createProfile.html");
-                break;
-            case "showProfiles":
-                rd = request.getRequestDispatcher("showProfiles.jsp");
-                break;
-            default:
-                rd = request.getRequestDispatcher("index.html");
-                break;
-        }
-        rd.forward(request, response);
+        BasisConnectionPool pool = new BasisConnectionPool();
+        ProfileMapper pm = new ProfileMapper(pool);
+        int id = pm.getNextProfileId();
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String date = request.getParameter("birthday");
+        LocalDate birthday = LocalDate.parse(date);
+        Profile profile = new Profile(id, firstName, lastName, birthday);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

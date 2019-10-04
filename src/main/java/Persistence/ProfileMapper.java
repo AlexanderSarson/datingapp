@@ -60,11 +60,37 @@ public class ProfileMapper {
         pool.releaseConnection(conn);
         return profiles;
     }
+    
+    public int getNextProfileId(){
+        String sql = "Select max(profile_id) from datingprofiles";
+        Connection conn = null;
+        PreparedStatement stmt;
+        ResultSet rs = null;
+        int profile_id = 0;
+        try {
+            conn = pool.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            while (rs.next()) {
+                profile_id = rs.getInt("max(profile_id)");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        pool.releaseConnection(conn);
+        return profile_id + 1;
+    }
 //    public static void main(String[] args) {
 //        BasisConnectionPool pool = new BasisConnectionPool();
 //        ProfileMapper mapper = new ProfileMapper(pool);
 //        ProfileController pc = mapper.getAllProfiles();
+//        int number = mapper.getNextProfileId();
 //        System.out.println(pc.getProfiles().get(0));
+//        System.out.println(number);
 //    }
     
 }

@@ -60,7 +60,4 @@ public class ProfileMapperTest {
         ProfileController pc = pm.getAllProfiles();
         assertEquals("Oscar", pc.getProfiles().get(0).getFirstName());
     }
-
-
-    
 }

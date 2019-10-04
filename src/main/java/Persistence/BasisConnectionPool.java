@@ -22,7 +22,7 @@ public class BasisConnectionPool implements IConnectionPool {
     private final String PASSWORD = "dev";
     private List<Connection> connectionPool = new ArrayList<>();
     private List<Connection> usedConnections = new ArrayList<>();
-    private final int INITIAL_POOL_SIZE = 10;
+    private final int INITIAL_POOL_SIZE = 20;
 
     public BasisConnectionPool() {
         try {

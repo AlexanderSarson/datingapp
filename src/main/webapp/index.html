@@ -1,10 +1,23 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Start Page</title>
+        <title>Title</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/uikit.min.css" />
+        <script src="js/uikit.min.js"></script>
+        <script src="js/uikit-icons.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
         <h1>Hello World!</h1>
+        <form action="FrontController" class="uk-form-stacked">
+            <input type="hidden" name="cmd" value="createProfile" />
+            <button type="submit" value="Create Profile" class="uk-button uk-button-default">Create Profile</button>
+        </form>
+        <form action="FrontController">
+            <input type="hidden" name="cmd" value="showProfiles" />
+            <button type="submit" value="Show Profiles" class="uk-button uk-button-default">Show Profiles</button>
+        </form>
     </body>
 </html>
