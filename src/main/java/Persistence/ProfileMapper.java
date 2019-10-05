@@ -20,29 +20,18 @@ import logic.ProfileController;
  * @author Alex
  */
 public class ProfileMapper {
+
     private DataSource pool;
 
     public ProfileMapper(DataSource pool) {
         this.pool = pool;
     }
-    
-    
-    
-    public ProfileController getAllProfiles(){
+
+    public ProfileController getAllProfiles() {
         String sql = "SELECT * FROM datingprofiles";
         ProfileController profiles = new ProfileController();
-        Connection conn = null;
-        PreparedStatement stmt;
-        ResultSet rs = null;
-        try {
-            conn = pool.getConnection();
-            stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         Profile profile = null;
-        try {
+        try ( Connection conn = pool.getConnection();  PreparedStatement stmt = conn.prepareStatement(sql);  ResultSet rs = stmt.executeQuery();) {
             while (rs.next()) {
                 int id = rs.getInt("profile_id");
                 String firstName = rs.getString("first_name");
@@ -50,39 +39,42 @@ public class ProfileMapper {
                 Date birthday = rs.getDate("birthday");
                 LocalDate date = birthday.toLocalDate();
                 String picturePath = rs.getString("picture_path");
-                profile = new Profile(id, firstName,lastName,date,picturePath);
+                profile = new Profile(id, firstName, lastName, date, picturePath);
                 profiles.addProfile(profile);
-            }
-            if(conn != null){
-                conn.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return profiles;
     }
-    
-    public int getNextProfileId(){
+
+    public int getNextProfileId() {
         String sql = "Select max(profile_id) from datingprofiles";
-        Connection conn = null;
-        PreparedStatement stmt;
-        ResultSet rs = null;
         int profile_id = 0;
-        try {
-            conn = pool.getConnection();
-            stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            while (rs.next()) {
+        try ( Connection conn = pool.getConnection();  PreparedStatement stmt = conn.prepareStatement(sql);  ResultSet rs = stmt.executeQuery();) {
+            if(rs.next()){
                 profile_id = rs.getInt("max(profile_id)");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return profile_id + 1;
+    }
+    
+    public boolean createProfile(Profile profile){
+        String updateSql = "INSERT INTO datingprofiles (profile_id, first_name, last_name, birthday) VALUES (?,?,?,?)";
+        boolean isUpdated = false;
+        try ( Connection conn = pool.getConnection();  PreparedStatement stmt = conn.prepareStatement(updateSql);) {
+            stmt.setInt(1, profile.getId());
+            stmt.setString(2, profile.getFirstName());
+            stmt.setString(3, profile.getLastName());
+            stmt.setDate(4, java.sql.Date.valueOf(profile.getDateOfBirth()));
+            int update = stmt.executeUpdate();
+            if(update > 0) isUpdated = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return isUpdated;
     }
 //    public static void main(String[] args) {
 //        BasisConnectionPool pool = new BasisConnectionPool();
@@ -92,5 +84,5 @@ public class ProfileMapper {
 //        System.out.println(pc.getProfiles().get(0));
 //        System.out.println(number);
 //    }
-    
+
 }

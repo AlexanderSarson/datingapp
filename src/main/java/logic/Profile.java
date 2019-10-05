@@ -66,6 +66,10 @@ public class Profile {
         this.picturePath = picturePath;
     }
 
+    public int getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "Profile{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", picturePath=" + picturePath + '}';

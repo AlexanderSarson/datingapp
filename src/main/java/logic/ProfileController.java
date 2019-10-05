@@ -27,4 +27,12 @@ public class ProfileController {
         return profiles;
     }
     
+    public String getAllProfilesString(){
+        String pro = "";
+        for (Profile profile : profiles) {
+            pro += profile + "\n";
+        }
+        return pro;
+    }
+    
 }

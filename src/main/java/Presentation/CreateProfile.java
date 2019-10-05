@@ -8,6 +8,7 @@ package Presentation;
 import Persistence.BasisConnectionPool;
 import Persistence.ProfileMapper;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,6 +58,7 @@ public class CreateProfile extends HttpServlet {
         String date = request.getParameter("birthday");
         LocalDate birthday = LocalDate.parse(date);
         Profile profile = new Profile(id, firstName, lastName, birthday);
+        pm.createProfile(profile);
         
     }
 
