@@ -11,8 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import javax.sql.DataSource;
 import logic.Profile;
 import logic.ProfileController;
 
@@ -21,9 +20,9 @@ import logic.ProfileController;
  * @author Alex
  */
 public class ProfileMapper {
-    private BasisConnectionPool pool;
+    private DataSource pool;
 
-    public ProfileMapper(BasisConnectionPool pool) {
+    public ProfileMapper(DataSource pool) {
         this.pool = pool;
     }
     
@@ -54,10 +53,12 @@ public class ProfileMapper {
                 profile = new Profile(id, firstName,lastName,date,picturePath);
                 profiles.addProfile(profile);
             }
+            if(conn != null){
+                conn.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        pool.releaseConnection(conn);
         return profiles;
     }
     
@@ -81,7 +82,6 @@ public class ProfileMapper {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        pool.releaseConnection(conn);
         return profile_id + 1;
     }
 //    public static void main(String[] args) {

@@ -9,11 +9,17 @@ import Persistence.BasisConnectionPool;
 import Persistence.ProfileMapper;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import logic.Profile;
 
 /**
@@ -23,17 +29,27 @@ import logic.Profile;
 @WebServlet(name = "CreateProfile", urlPatterns = {"/CreateProfile"})
 public class CreateProfile extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private DataSource pool;
+    
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        try {
+            // Create a JNDI Initial context to be able to lookup the DataSource
+            InitialContext ctx = new InitialContext();
+            // Lookup the DataSource, which will be backed by a pool
+            //   that the application server provides.
+            pool = (DataSource) ctx.lookup("java:comp/env/jdbc/mysql_datingapp");
+            if (pool == null) {
+                throw new ServletException("Unknown DataSource 'jdbc/mysql_datingapp'");
+            }
+        } catch (NamingException ex) {
+            Logger.getLogger(CreateProfile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        BasisConnectionPool pool = new BasisConnectionPool();
         ProfileMapper pm = new ProfileMapper(pool);
         int id = pm.getNextProfileId();
         String firstName = request.getParameter("firstName");
@@ -41,6 +57,7 @@ public class CreateProfile extends HttpServlet {
         String date = request.getParameter("birthday");
         LocalDate birthday = LocalDate.parse(date);
         Profile profile = new Profile(id, firstName, lastName, birthday);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
