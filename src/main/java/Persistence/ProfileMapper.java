@@ -23,6 +23,9 @@ public class ProfileMapper {
 
     private DataSource pool;
 
+    public ProfileMapper() {
+    }
+    
     public ProfileMapper(DataSource pool) {
         this.pool = pool;
     }
@@ -62,13 +65,14 @@ public class ProfileMapper {
     }
     
     public boolean createProfile(Profile profile){
-        String updateSql = "INSERT INTO datingprofiles (profile_id, first_name, last_name, birthday) VALUES (?,?,?,?)";
+        String updateSql = "INSERT INTO datingprofiles (profile_id, first_name, last_name, birthday,picture_path) VALUES (?,?,?,?,?)";
         boolean isUpdated = false;
         try ( Connection conn = pool.getConnection();  PreparedStatement stmt = conn.prepareStatement(updateSql);) {
             stmt.setInt(1, profile.getId());
             stmt.setString(2, profile.getFirstName());
             stmt.setString(3, profile.getLastName());
             stmt.setDate(4, java.sql.Date.valueOf(profile.getDateOfBirth()));
+            stmt.setString(5, profile.getPicturePath());
             int update = stmt.executeUpdate();
             if(update > 0) isUpdated = true;
         } catch (SQLException e) {

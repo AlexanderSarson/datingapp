@@ -15,11 +15,12 @@ and open the template in the editor.
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-
-        <form action="CreateProfile" class="uk-form-stacked">
-            <input name="firstName" value="" class="uk-input uk-form-width-medium" type="text" placeholder="First name">
-            <input name="lastName" value="" class="uk-input uk-form-width-medium" type="text" placeholder="Last name">
-            <input name="birthday" value="" class="uk-input uk-form-width-medium" type="text" placeholder="Birthday">
+        <h1 class="uk-heading-large">Create profile</h1>
+        <form method="post" action="CreateProfile" enctype="multipart/form-data" class="uk-form-stacked">
+            <input name="firstName" value="" class="uk-input uk-form-width-medium" type="text" placeholder="First name"/><br />
+            <input name="lastName" value="" class="uk-input uk-form-width-medium" type="text" placeholder="Last name"/><br />
+            <input name="birthday" value="" class="uk-input uk-form-width-medium" type="text" placeholder="Birthday"/><br />
+            Choose a picture: <input type="file" name="picture" class="uk-input uk-form-width-medium" /><br />
             <button type="submit" value="Create Profile" class="uk-button uk-button-default">Create Profile</button>
         </form>
 

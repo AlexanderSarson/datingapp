@@ -8,18 +8,23 @@ package Presentation;
 import Persistence.BasisConnectionPool;
 import Persistence.ProfileMapper;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import javax.sql.DataSource;
 import logic.Profile;
 
@@ -28,6 +33,11 @@ import logic.Profile;
  * @author Alex
  */
 @WebServlet(name = "CreateProfile", urlPatterns = {"/CreateProfile"})
+@MultipartConfig(
+   location="c:\\temp\\pictures",
+   fileSizeThreshold=1024*1024,
+   maxFileSize=5*1024*1024,
+   maxRequestSize=2*5*1024*1024)
 public class CreateProfile extends HttpServlet {
 
     private DataSource pool;
@@ -57,7 +67,12 @@ public class CreateProfile extends HttpServlet {
         String lastName = request.getParameter("lastName");
         String date = request.getParameter("birthday");
         LocalDate birthday = LocalDate.parse(date);
-        Profile profile = new Profile(id, firstName, lastName, birthday);
+        Part part = request.getPart("picture");
+        String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+        InputStream fileContent = part.getInputStream();
+        String path = "c:\\temp\\pictures\\";
+        path += part.getSubmittedFileName();
+        Profile profile = new Profile(id, firstName, lastName, birthday,path);
         pm.createProfile(profile);
         
     }
