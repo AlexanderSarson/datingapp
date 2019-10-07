@@ -80,13 +80,4 @@ public class ProfileMapper {
         }
         return isUpdated;
     }
-//    public static void main(String[] args) {
-//        BasisConnectionPool pool = new BasisConnectionPool();
-//        ProfileMapper mapper = new ProfileMapper(pool);
-//        ProfileController pc = mapper.getAllProfiles();
-//        int number = mapper.getNextProfileId();
-//        System.out.println(pc.getProfiles().get(0));
-//        System.out.println(number);
-//    }
-
 }

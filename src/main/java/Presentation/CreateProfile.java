@@ -7,9 +7,11 @@ package Presentation;
 
 import Persistence.BasisConnectionPool;
 import Persistence.ProfileMapper;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -34,14 +36,14 @@ import logic.Profile;
  */
 @WebServlet(name = "CreateProfile", urlPatterns = {"/CreateProfile"})
 @MultipartConfig(
-   location="c:\\temp\\pictures",
-   fileSizeThreshold=1024*1024,
-   maxFileSize=5*1024*1024,
-   maxRequestSize=2*5*1024*1024)
+        location = "c:\\temp\\pictures",
+        fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 5 * 1024 * 1024,
+        maxRequestSize = 2 * 5 * 1024 * 1024)
 public class CreateProfile extends HttpServlet {
 
     private DataSource pool;
-    
+
     @Override
     public void init(ServletConfig config) throws ServletException {
         try {
@@ -58,7 +60,6 @@ public class CreateProfile extends HttpServlet {
         }
     }
 
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ProfileMapper pm = new ProfileMapper(pool);
@@ -67,15 +68,33 @@ public class CreateProfile extends HttpServlet {
         String lastName = request.getParameter("lastName");
         String date = request.getParameter("birthday");
         LocalDate birthday = LocalDate.parse(date);
+//        String filename = firstName + lastName + ".jpg";
         Part part = request.getPart("picture");
-        String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-        InputStream fileContent = part.getInputStream();
-        String path = "c:\\temp\\pictures\\";
-        path += part.getSubmittedFileName();
-        Profile profile = new Profile(id, firstName, lastName, birthday,path);
-        pm.createProfile(profile);
+//        part.write(filename);
+        String fileName = getFileName(part);
+        File uploads = new File("c:/temp/pictures");
+        File file = new File(uploads, fileName);
+        try ( InputStream input = part.getInputStream()) {
+            Files.copy(input, file.toPath());
+        }
         
+        String path = "c:/temp/pictures/" + fileName;
+        Profile profile = new Profile(id, firstName, lastName, birthday, path);
+        pm.createProfile(profile);
+
     }
+    
+    // Gets the file name from the "content-disposition" header
+   private String getFileName(Part part) {
+    for (String token : part.getHeader("content-disposition").split(";")) {
+      if (token.trim().startsWith("filename")) {
+        String file =  token.substring(token.indexOf('=') + 1).trim().replace("\"", "");
+        String[] fileSplit = file.split("\\\\");
+        return fileSplit[fileSplit.length - 1];
+      }
+    }
+    return null;
+  }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

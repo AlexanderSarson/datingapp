@@ -30,10 +30,13 @@ public class FrontControllerTest {
 
     @InjectMocks
     private FrontController fc;
+    
+    @Spy
+    private FrontController spyFC;
 
     @Mock
     private HttpServletRequest request;
-
+    
     @Mock
     private HttpServletResponse response;
 
@@ -43,7 +46,7 @@ public class FrontControllerTest {
     @Mock
     private ProfileController pc;
     
-    @Spy
+    @Mock
     private ProfileMapper pm;
        
     /**
@@ -60,14 +63,15 @@ public class FrontControllerTest {
     /**
      * Test of processRequest method, of class FrontController.
      */
-//    @Test
-//    public void testProcessRequestShowProfiles() throws Exception {
-//        when(request.getParameter("cmd")).thenReturn("ShowProfiles");
-//        when(request.getRequestDispatcher("ShowProfiles.jsp")).thenReturn(rd);
-//        doReturn(pc).when(pm).getAllProfiles();
-//        fc.processRequest(request, response);
-//        verify(request, times(1)).getRequestDispatcher("ShowProfiles.jsp");
-//    }
+    @Test
+    public void testProcessRequestShowProfiles() throws Exception {
+        when(request.getParameter("cmd")).thenReturn("ShowProfiles");
+        when(request.getRequestDispatcher("ShowProfiles.jsp")).thenReturn(rd);
+        doReturn(pm).when(spyFC).makeProfileMapper();
+        when(pm.getAllProfiles()).thenReturn(pc);
+        spyFC.processRequest(request, response);
+        verify(request, times(1)).getRequestDispatcher("ShowProfiles.jsp");
+    }
 
     /**
      * Test of processRequest method, of class FrontController.

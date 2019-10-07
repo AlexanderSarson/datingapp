@@ -21,14 +21,13 @@
     <body>
         <%
             List<Profile> profiles = (List) request.getAttribute("profiles");
-            String hej = profiles.get(0).toString();
         %>
         <div class="uk-child-width-expand@s uk-text-center" uk-grid uk-height-match="target: > div > .uk-card">
             <%
                 for (Profile profile : profiles) {
             %>
             <div>
-                <div class="uk-card uk-card-default uk-card-body">Item<br>Name: <%= profile.getFirstName()%> <%= profile.getLastName()%><br>Birthday: <%= profile.getDateOfBirth().toString()%> </div>
+                <div class="uk-card uk-card-default uk-card-body"><img src="c:/temp/pictures/butterfly.jpg" alt="Profile Picture" width="100" height="100"><br>Name: <%= profile.getFirstName()%> <%= profile.getLastName()%><br>Birthday: <%= profile.getDateOfBirth().toString()%> </div>
             </div>
             <%
                 }

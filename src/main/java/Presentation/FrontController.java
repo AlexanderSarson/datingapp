@@ -59,7 +59,7 @@ public class FrontController extends HttpServlet {
                 rd = request.getRequestDispatcher("createProfile.html");
                 break;
             case "ShowProfiles":
-                ProfileMapper pm = new ProfileMapper(pool);
+                ProfileMapper pm = makeProfileMapper();
                 ProfileController pc = pm.getAllProfiles();
                 List<Profile> profiles = pc.getProfiles();
                 request.setAttribute("profiles", profiles);
@@ -70,6 +70,10 @@ public class FrontController extends HttpServlet {
                 break;
         }
         rd.forward(request, response);
+    }
+    
+    public ProfileMapper makeProfileMapper(){
+        return new ProfileMapper(pool);
     }
        
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
