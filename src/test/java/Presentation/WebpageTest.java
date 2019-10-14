@@ -43,5 +43,16 @@ public class WebpageTest extends TestBase{
         birthday.sendKeys("1990-05-05");
         Thread.sleep(5000);
     }
+    
+    @Test
+    public void clickShowProfileTest() throws InterruptedException {
+        WebDriver driver = getDriver();
+        driver.get("http://tomcat:8080/root/");
+        WebElement link = driver.findElement(By.xpath("//*[text()='Show Profiles']"));
+        Thread.sleep(3000);
+        link.click();
+        Thread.sleep(5000);
+    }
+    
 
 }
