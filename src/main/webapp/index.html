@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Title</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/uikit.min.css" />
-        <script src="js/uikit.min.js"></script>
-        <script src="js/uikit-icons.min.js"></script>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-        <form action="FrontController" class="uk-form-stacked">
-            <input type="hidden" name="cmd" value="createProfile" />
-            <button type="submit" value="Create Profile" class="uk-button uk-button-default">Create Profile</button>
-        </form>
-        <form action="FrontController">
-            <input type="hidden" name="cmd" value="ShowProfiles" />
-            <button type="submit" value="Show Profiles" class="uk-button uk-button-default">Show Profiles</button>
-        </form>
-        <img src="C:\temp\pictures\butterfly.jpg" alt="profile picture">
-    </body>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>DatingApp</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/Navigation-with-Button.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/untitled.css">
+</head>
+
+<body style="background-image: url(&quot;assets/img/Bigheart.jpg&quot;);background-position: top;background-repeat: no-repeat;background-size: 100%;">
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+        <div class="container"><a class="navbar-brand" href="#">Meet your match - sign up today!&nbsp;</a>
+            <form class="form-inline" action="FrontController">
+                <div class="collapse navbar-collapse" id="navcol-1"><span class="navbar-text actions"> <button class="btn btn-light bg-danger action-button" id="1" type="submit" style="width: 127px;" name="cmd" value="ShowProfiles">Show Profiles</button><button class="btn btn-light bg-danger action-button" id="2" type="submit" style="width: 127px;" name="cmd" value="createProfile"><strong>Sign Up</strong></button></span></div>
+            </form>
+        </div>
+    </nav>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
 </html>
