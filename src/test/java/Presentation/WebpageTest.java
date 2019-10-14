@@ -5,39 +5,32 @@
  */
 package Presentation;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 /**
  *
  * @author Alex
  */
-public class WebpageTest {
+public class WebpageTest extends TestBase{
 
-    WebDriver driver;
-    
-
-    @Before
-    public void setUp() {
-        System.setProperty("webdriver.gecko.driver","C:\\temp\\geckodriver.exe");
-        driver = new FirefoxDriver();
-    }
-
-    @After
-    public void teardown() {
-        if (driver != null) {
-            driver.quit();
-        }
+    public WebpageTest(DesiredCapabilities capabilities) {
+        super(capabilities);
     }
 
     @Test
     public void clickCreateProfileTest() throws InterruptedException {
-        driver.get("http://localhost:8080/DatingApp/index.html");
+        WebDriver driver = getDriver();
+        driver.get("http://tomcat:8080/root/");
         WebElement link = driver.findElement(By.xpath("//*[text()='Create Profile']"));
         Thread.sleep(3000);
         link.click();

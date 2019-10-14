@@ -11,7 +11,7 @@
     </session-config>
     <context-param>
         <param-name>databaseURL</param-name>
-        <param-value>jdbc:mysql://localhost:3306/ebookshop</param-value>
+        <param-value>jdbc:mysql://mysql:3306/ebookshop</param-value>
     </context-param>
     <context-param>
         <param-name>username</param-name>
@@ -19,7 +19,7 @@
     </context-param>
     <context-param>
         <param-name>password</param-name>
-        <param-value>dev</param-value>
+        <param-value>password123</param-value>
     </context-param>
     <resource-ref>
         <description>DB Connection Pool</description>
