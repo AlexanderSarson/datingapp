@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -21,6 +22,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
  *
  * @author Alex
  */
+@Ignore
 public class WebpageTest extends TestBase{
 
     public WebpageTest(DesiredCapabilities capabilities) {
@@ -31,27 +33,23 @@ public class WebpageTest extends TestBase{
     public void clickCreateProfileTest() throws InterruptedException {
         WebDriver driver = getDriver();
         driver.get("http://tomcat:8080/root/");
-        WebElement link = driver.findElement(By.xpath("//*[text()='Create Profile']"));
-        Thread.sleep(3000);
+        WebElement link = driver.findElement(By.id("2"));
         link.click();
         WebElement firstName, lastName, birthday;
-        firstName = driver.findElement(By.name("firstName"));
+        firstName = driver.findElement(By.id("3"));
         firstName.sendKeys("Mads");
-        lastName = driver.findElement(By.name("lastName"));
+        lastName = driver.findElement(By.id("4"));
         lastName.sendKeys("Brandt");
-        birthday = driver.findElement(By.name("birthday"));
-        birthday.sendKeys("1990-05-05");
-        Thread.sleep(5000);
+//        birthday = driver.findElement(By.id("birthday"));
+//        birthday.sendKeys("1990-05-05");
     }
     
     @Test
     public void clickShowProfileTest() throws InterruptedException {
         WebDriver driver = getDriver();
         driver.get("http://tomcat:8080/root/");
-        WebElement link = driver.findElement(By.xpath("//*[text()='Show Profiles']"));
-        Thread.sleep(3000);
+        WebElement link = driver.findElement(By.id("1"));
         link.click();
-        Thread.sleep(5000);
     }
     
 

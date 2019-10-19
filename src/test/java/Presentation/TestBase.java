@@ -17,12 +17,10 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.concurrent.TimeUnit;
-import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 @RunWith(ParallelParameterized.class)
-public class TestBase {
+public abstract class TestBase {
 
     protected static ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
 
@@ -34,7 +32,7 @@ public class TestBase {
 
     @Parameterized.Parameters
     public static Collection<Object[]> getBrowserCapabilities() {
-         Object[][] data = new Object[][] { { DesiredCapabilities.chrome()}, { DesiredCapabilities.firefox()}};
+         Object[][] data = new Object[][] { { DesiredCapabilities.chrome()}, { DesiredCapabilities.firefox()}, {DesiredCapabilities.internetExplorer()}};
     return Arrays.asList(data);
     }
 

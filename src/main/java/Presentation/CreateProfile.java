@@ -36,7 +36,7 @@ import logic.Profile;
  */
 @WebServlet(name = "CreateProfile", urlPatterns = {"/CreateProfile"})
 @MultipartConfig(
-        location = "c:\\temp\\pictures",
+        location = "",
         fileSizeThreshold = 1024 * 1024,
         maxFileSize = 5 * 1024 * 1024,
         maxRequestSize = 2 * 5 * 1024 * 1024)
@@ -66,19 +66,20 @@ public class CreateProfile extends HttpServlet {
         int id = pm.getNextProfileId();
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
-        String date = request.getParameter("birthday");
-        LocalDate birthday = LocalDate.parse(date);
+        //String date = request.getParameter("birthday");
+        LocalDate birthday = LocalDate.now();
+        //LocalDate.parse(date);
 //        String filename = firstName + lastName + ".jpg";
         Part part = request.getPart("picture");
 //        part.write(filename);
         String fileName = getFileName(part);
-        File uploads = new File("c:/temp/pictures");
+        File uploads = new File("");
         File file = new File(uploads, fileName);
         try ( InputStream input = part.getInputStream()) {
             Files.copy(input, file.toPath());
         }
         
-        String path = "c:/temp/pictures/" + fileName;
+        String path = "" + fileName;
         Profile profile = new Profile(id, firstName, lastName, birthday, path);
         pm.createProfile(profile);
 
