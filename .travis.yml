@@ -1,7 +1,7 @@
 language: java
 addons:
   ssh_known_hosts:
-  - "$IP"
+  - $IP
 before_install:
 - openssl aes-256-cbc -K $encrypted_6b9b870d0f89_key -iv $encrypted_6b9b870d0f89_iv
   -in .travis/deploy_rsa.enc -out .travis/deploy_rsa -d
