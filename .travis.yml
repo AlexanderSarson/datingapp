@@ -4,4 +4,5 @@ before_install:
   -in .travis/id_rsa.enc -out id_rsa -d
 
 after_success:
+chmod ugo+x .travis/deploy.sh
 .travis/deploy.sh
