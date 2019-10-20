@@ -127,7 +127,7 @@
                 <version>2.3</version>
                 <configuration>
                     <warName>root</warName>
-                    <!--<outputDirectory>/usr/local/src</outputDirectory> -->
+                    <outputDirectory>${basedir}</outputDirectory>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
