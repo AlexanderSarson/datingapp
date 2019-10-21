@@ -7,7 +7,7 @@ cd target && ls
 echo scp
 scp -P $PORT -p target/root.war alex@$IP:/opt/tomcat/webapps/
 echo rsync
-rsync -avz target/root.war ssh_user@your.server.com:/opt/tomcat/webapps/
+rsync -avz target/root.war alex@$IP:/opt/tomcat/webapps/
 
 ssh alex@$IP -p $PORT <<EOF
   cd $DEPLOY_DIR
