@@ -17,10 +17,10 @@ after_success:
 - on:
      branch: master
   provider: script
-  script:".travis/deploy.sh"
+  script:" .travis/deploy.sh"
 
 - on:
      branch: dev
   provider: script
-  script:".travis/deploy.sh"
+  script:" .travis/deploy.sh"
 
