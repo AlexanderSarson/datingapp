@@ -5,11 +5,11 @@ chmod 600 .travis/deploy_rsa # Allow read access to the private key
 ssh-add .travis/deploy_rsa # Add the private key to SSH
 
 echo scp
-scp -P $PORT -p target/root.war alex@$IP:/opt/tomcat/webapps/
-echo rsync
-rsync -avz target/root.war alex@$IP:/opt/tomcat/webapps/
+scp -p 'target/*.war' $USER@$IP:/opt/tomcat/webapps/
+#echo rsync
+#rsync -avz target/root.war alex@$IP:/opt/tomcat/webapps/
 
-ssh alex@$IP -p $PORT <<EOF
+ssh $USER@$IP -p $PORT <<EOF
   cd $DEPLOY_DIR
 #  cp -f root.war /opt/tomcat/webapps
 EOF
