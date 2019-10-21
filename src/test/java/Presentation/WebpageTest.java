@@ -22,7 +22,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
  *
  * @author Alex
  */
-
+@Ignore
 public class WebpageTest extends TestBase{
 
     public WebpageTest(DesiredCapabilities capabilities) {
