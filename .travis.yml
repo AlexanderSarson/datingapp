@@ -14,13 +14,6 @@ before_install:
   -in .travis/deploy_rsa.enc -out .travis/deploy_rsa -d
 
 after_success:
-- on:
-    branch: master
-        provider: script
-        script: ".travis/deploy.sh"
-
-- on:
-    branch: dev
-        provider: script
-        script: ".travis/deploy.sh"
+- chmod ugo+x .travis/deploy.sh
+- ".travis/deploy.sh"
 
