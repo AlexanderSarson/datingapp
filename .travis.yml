@@ -14,4 +14,4 @@ before_install:
 after_success:
 - chmod ugo+x .travis/deploy.sh
 - ".travis/deploy.sh"
-
+- bash <(curl -s https://codecov.io/bash)
