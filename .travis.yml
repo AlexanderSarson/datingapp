@@ -1,9 +1,9 @@
 language: java
 
 branches:
-  only:
-    - master
-    - dev
+    only:
+        - master
+        - dev
 
 addons:
   ssh_known_hosts:
@@ -15,12 +15,12 @@ before_install:
 
 after_success:
 - on:
-     branch: master
-  provider: script
-  script:" .travis/deploy.sh"
+    branch: master
+        provider: script
+        script: ".travis/deploy.sh"
 
 - on:
-     branch: dev
-  provider: script
-  script:" .travis/deploy.sh"
+    branch: dev
+        provider: script
+        script: ".travis/deploy.sh"
 
